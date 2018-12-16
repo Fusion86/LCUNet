@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:root="clr-namespace:IconBrowser"
         xmlns:vm="clr-namespace:IconBrowser.ViewModels"
+        xmlns:vc="clr-namespace:IconBrowser.ValueConverters"
         mc:Ignorable="d"
         Title="{Binding WindowTitle}" Height="450" Width="800"
         ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <vc:LcuImageLoader x:Key="LcuImageLoader"/>
+    </Window.Resources>
+    
     <Window.DataContext>
         <vm:MainWindowViewModel x:Name="vm"/>
     </Window.DataContext>
@@ -35,7 +40,18 @@
                             <TextBlock Text="{Binding Title}"/>
                         </StackPanel.ToolTip>
 
-                        <Image Width="150" Height="150" Source="{Binding ImagePath}"/>
+                        <StackPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="{Binding Title}" IsEnabled="False"/>
+                                <Separator/>
+                                <MenuItem Header="Copy icon URL" Command="{Binding CopyIconUrlCommand}"/>
+                                <MenuItem Header="Open icon in browser" Command="{Binding OpenIconInBrowserCommand}"/>
+                                <Separator/>
+                                <MenuItem Header="Set this as my Summoner Icon"/>
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
+
+                        <Image Width="150" Height="150" Source="{Binding ImagePath, Converter={StaticResource LcuImageLoader}, IsAsync=True}"/>
                         <TextBlock Text="{Binding Title}" TextAlignment="Center"/>
                     </StackPanel>
                 </DataTemplate>

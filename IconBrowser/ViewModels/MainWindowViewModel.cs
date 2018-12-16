@@ -1,4 +1,5 @@
-﻿using LCUNet;
+﻿using IconBrowser.ValueConverters;
+using LCUNet;
 using LCUNet.Exceptions;
 using LCUNet.Models.GameData;
 using LCUNet.Models.System;
@@ -49,6 +50,9 @@ namespace IconBrowser.ViewModels
 
             if (_isConnected)
             {
+                // Set LcuImageLoader's LeagueHttpClient
+                LcuImageLoader.LeagueHttpClient = _api.HttpClient;
+
                 // Get buildinfo (client version etc) 
                 LastLogEntry = "Retrieving BuildInfo...";
                 _buildInfo = await _api.System.GetBuildInfo();
@@ -74,7 +78,7 @@ namespace IconBrowser.ViewModels
                 {
                     string basePath = _api.HttpClient.GetFullUrl(embedAuthDetails: true);
 
-                    SummonerIcons = summonerIcons.Select(x => new SummonerIconViewModel(x, basePath)).ToList(); // TODO: Order by ID
+                    SummonerIcons = summonerIcons.Select(x => new SummonerIconViewModel(x, basePath)).OrderBy(x => x.Id).ToList();
                     // TODO: SummonerIconSets
 
                     LastLogEntry = $"Loaded {summonerIcons.Count} icons split over {summonerIconSets.Count} sets";
