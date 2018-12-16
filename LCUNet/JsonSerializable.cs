@@ -2,9 +2,9 @@
 
 namespace LCUNet
 {
-    public class JsonSerializable
+    public abstract class JsonSerializable
     {
-        public override string ToString()
+        public string ToJson()
         {
             return JsonConvert.SerializeObject(this, LeagueClientApi.JsonSerializerSettings);
         }

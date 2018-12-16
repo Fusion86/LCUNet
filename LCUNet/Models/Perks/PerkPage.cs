@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace LCUNet.Models.Perks
 {
-    public class PerkPage
+    public class PerkPage : JsonSerializable
     {
         public List<int> AutoModifiedSelections { get; set; }
         public bool Current { get; set; }

@@ -31,8 +31,8 @@ namespace LCUNet.Apis
 
         public async Task<bool> SetPerkPage(PerkPage page)
         {
-            string json = JsonConvert.SerializeObject(page, LeagueClientApi.JsonSerializerSettings);
-            var res = await m_client.PutAsync(GetPluginUrl("/v1/pages/" + page.Id), new StringContent(json));
+            HttpContent content = new StringContent(page.ToJson());
+            var res = await m_client.PutAsync(GetPluginUrl("/v1/pages/" + page.Id), content);
 
             return res.IsSuccessStatusCode;
         }

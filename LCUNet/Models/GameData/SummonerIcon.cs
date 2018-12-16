@@ -2,9 +2,9 @@
 {
     public class SummonerIcon
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
-        public long YearReleased { get; set; }
+        public int YearReleased { get; set; }
         public bool IsLegacy { get; set; }
         public string ImagePath { get; set; }
         public Description[] Descriptions { get; set; }
@@ -21,6 +21,6 @@
     public class Rarity
     {
         public string Region { get; set; }
-        public long RarityRarity { get; set; }
+        public int RarityRarity { get; set; }
     }
 }

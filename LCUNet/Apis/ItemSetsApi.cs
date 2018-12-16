@@ -30,8 +30,7 @@ namespace LCUNet.Apis
         /// <returns></returns>
         public async Task<bool> SetItemSet(long summonerId, ItemSet itemSet)
         {
-            StringContent content = new StringContent(itemSet.ToString());
-
+            StringContent content = new StringContent(itemSet.ToJson());
             var res = await m_client.PostAsync(GetPluginUrl($"/v1/item-sets/{summonerId}/sets"), content);
             return res.IsSuccessStatusCode;
         }

@@ -1,5 +1,4 @@
-﻿using LCUNet;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,8 +12,6 @@ namespace IconBrowser.ValueConverters
     /// </summary>
     public class LcuImageLoader : IValueConverter
     {
-        public static LeagueHttpClient LeagueHttpClient;
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value != null)
@@ -22,7 +19,7 @@ namespace IconBrowser.ValueConverters
                 try
                 {
                     // Yes, Task.Run is required, why? idk
-                    var x = Task.Run(async () => await LeagueHttpClient.GetAsync((string)value));
+                    var x = Task.Run(async () => await AppState.LeagueClientApi.HttpClient.GetAsync((string)value));
                     var resp = x.Result;
 
                     BitmapImage image = new BitmapImage();

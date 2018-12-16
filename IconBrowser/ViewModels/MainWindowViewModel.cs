@@ -35,7 +35,7 @@ namespace IconBrowser.ViewModels
         #endregion
 
         private bool _isConnected { get; set; }
-        private LeagueClientApi _api = new LeagueClientApi();
+        private LeagueClientApi _api = AppState.LeagueClientApi;
         private BuildInfo _buildInfo = null;
 
         public MainWindowViewModel()
@@ -50,9 +50,6 @@ namespace IconBrowser.ViewModels
 
             if (_isConnected)
             {
-                // Set LcuImageLoader's LeagueHttpClient
-                LcuImageLoader.LeagueHttpClient = _api.HttpClient;
-
                 // Get buildinfo (client version etc) 
                 LastLogEntry = "Retrieving BuildInfo...";
                 _buildInfo = await _api.System.GetBuildInfo();

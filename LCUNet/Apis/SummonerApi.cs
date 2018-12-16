@@ -1,4 +1,6 @@
-﻿using LCUNet.Models.Summoner;
+﻿using LCUNet.Definitions;
+using LCUNet.Models.Summoner;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -20,6 +22,13 @@ namespace LCUNet.Apis
         public async Task<Summoner> GetSummoner(string name)
         {
             return await m_client.GetAsync<Summoner>(GetPluginUrl("/v1/summoners?name=" + HttpUtility.UrlEncode(name)));
+        }
+
+        public async Task<bool> SetCurrentSummonerIcon(LolSummonerSummonerIcon summonerIcon)
+        {
+            HttpContent content = new StringContent(summonerIcon.ToJson());
+            var res = await m_client.PutAsync(GetPluginUrl("/v1/current-summoner/icon"), content);
+            return res.IsSuccessStatusCode;
         }
     }
 }

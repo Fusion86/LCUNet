@@ -47,7 +47,7 @@
                                 <MenuItem Header="Copy icon URL" Command="{Binding CopyIconUrlCommand}"/>
                                 <MenuItem Header="Open icon in browser" Command="{Binding OpenIconInBrowserCommand}"/>
                                 <Separator/>
-                                <MenuItem Header="Set this as my Summoner Icon"/>
+                                <MenuItem Header="Set this as my Summoner Icon" Command="{Binding SetIconAsSummonerIconCommand}" CommandParameter="{Binding Id}"/>
                             </ContextMenu>
                         </StackPanel.ContextMenu>
 

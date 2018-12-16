@@ -17,8 +17,7 @@ namespace IconBrowser
 
         #region Constructors
 
-        public RelayCommand(Action<T> execute)
-        : this(execute, null)
+        public RelayCommand(Action<T> execute) : this(execute, null)
         {
         }
 
