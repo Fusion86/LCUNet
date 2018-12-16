@@ -1,0 +1,55 @@
+﻿<Window x:Class="IconBrowser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:root="clr-namespace:IconBrowser"
+        xmlns:vm="clr-namespace:IconBrowser.ViewModels"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}" Height="450" Width="800"
+        ResizeMode="CanResizeWithGrip">
+    <Window.DataContext>
+        <vm:MainWindowViewModel x:Name="vm"/>
+    </Window.DataContext>
+    
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="White">
+            <MenuItem Header="File">
+                <MenuItem Header="Export"/>
+            </MenuItem>
+
+            <!-- TODO: Show when not connected -->
+            <MenuItem Header="Connect to LeagueClient" Visibility="Collapsed"/>
+        </Menu>
+        
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Content="{Binding LcuConnectionStatus}" Margin="0, 0, 20, 0"/>
+            <StatusBarItem Content="{Binding LastLogEntry}"/>
+        </StatusBar>
+        
+        <ListView BorderThickness="0" ItemsSource="{Binding SummonerIcons}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Width="150">
+                        <StackPanel.ToolTip>
+                            <TextBlock Text="{Binding Title}"/>
+                        </StackPanel.ToolTip>
+
+                        <Image Width="150" Height="150" Source="{Binding ImagePath}"/>
+                        <TextBlock Text="{Binding Title}" TextAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <!-- Taken from https://stackoverflow.com/a/1041784/2125072 -->
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                               ItemWidth="{Binding (ListView.View).ItemWidth, RelativeSource={RelativeSource AncestorType=ListView}}"
+                               MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
+                               ItemHeight="{Binding (ListView.View).ItemHeight, RelativeSource={RelativeSource AncestorType=ListView}}" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+    </DockPanel>
+</Window>

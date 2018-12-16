@@ -5,13 +5,9 @@ namespace LCUNet.Models.GameData
     public class Champion
     {
         public long Id { get; set; }
-
         public string Name { get; set; }
-
         public string Alias { get; set; }
-
         public string SquarePortraitPath { get; set; }
-
         public List<Role> Roles { get; set; }
     }
 

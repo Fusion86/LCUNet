@@ -57,8 +57,11 @@ namespace LCUNet
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public string GetFullUrl(string path = "")
+        public string GetFullUrl(string path = "", bool embedAuthDetails = false)
         {
+            if (embedAuthDetails)
+                return "https://riot:" + Password + "@127.0.0.1:" + Port + path; ;
+
             return "https://127.0.0.1:" + Port + path;
         }
 
